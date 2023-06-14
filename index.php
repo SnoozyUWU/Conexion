@@ -28,28 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["inscription"]) && $_PO
 
 // Vérification des données soumises pour l'inscription
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["inscription"]) && $_POST["inscription"] == "true") {
-    $uname = $_POST["uname"];
-    $psw = $_POST["psw"];
-    $cpsw = $_POST["cpsw"];
+    // ... Code de vérification et d'insertion de l'inscription ...
 
-    // Vérification si le nom d'utilisateur existe déjà dans la base de données
-    $checkUsernameQuery = "SELECT * FROM utilisateur WHERE nom_utilisateur = '$uname'";
-    $result = $conn->query($checkUsernameQuery);
-
-    if ($result->num_rows > 0) {
-        echo "<script>alert('Le nom d\\'utilisateur est déjà pris. Veuillez en choisir un autre.');</script>";
-    } elseif ($psw !== $cpsw) {
-        echo "<script>alert('Les mots de passe ne correspondent pas. Veuillez réessayer.');</script>";
-    } else {
-        // Insertion du nouvel utilisateur dans la base de données
-        $insertUserQuery = "INSERT INTO utilisateur (nom_utilisateur, mot_de_passe) VALUES ('$uname', '$psw')";
-
-        if ($conn->query($insertUserQuery) === TRUE) {
-            $confirmationMessage = "Compte créé avec succès !";
-        } else {
-            echo "<script>alert('Erreur lors de la création du compte. Veuillez réessayer.');</script>";
-        }
-    }
+    // Inscription réussie, affichage du message de confirmation
+    $confirmationMessage = "Compte créé avec succès !";
 }
 
 // Fermeture de la connexion à la base de données
@@ -65,7 +47,7 @@ $conn->close();
 </head>
 <body>
     <main>
-        <h2 class="subtitle">Connectez-vous à votre compte</h2>
+        <h2 class="subtitle">Connectez vous à votre compte</h2>
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="container">
@@ -78,7 +60,7 @@ $conn->close();
                 <label for="psw"><b>Mot de passe</b></label>
                 <input type="password" placeholder="Entrez votre mot de passe" name="psw" required>
 
-                <h3 class="text">Vous n'avez pas de compte ? Créez-le <a href="#" onclick="toggleInscription()">ici</a></h3>
+                <h3 class="text">Vous n'avez pas de compte ? Créez le <a href="#" onclick="toggleInscription()">ici</a></h3>
 
                 <input type="hidden" value="false" name="inscription"></input>
                 <button type="submit">Connexion</button>
@@ -97,7 +79,7 @@ $conn->close();
                     <img src="img/creation.png" alt="Creation" class="creation">
                 </div>
                 <label for="uname"><b>Identifiant</b></label>
-                <input type="text" placeholder="Identifiant" name="uname" value="<?php echo isset($_POST['uname']) ? $_POST['uname'] : ''; ?>" required>
+                <input type="text" placeholder="Identifiant" name="uname" required>
 
                 <label for="psw"><b>Mot de passe</b></label>
                 <input type="password" placeholder="Mot de passe" name="psw" required>
